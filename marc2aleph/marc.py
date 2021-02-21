@@ -79,11 +79,11 @@ class Converter:
                 if tag in ('100', '105', '461', '462', '463'):
                     field = field.replace('^', ' ')
             field += self._RS
-            if len(field) > 9999:
+            length = len(field.encode(encoding))
+            if length > 9999:
                 return ''
-            directory += tag + str(len(field.encode(encoding))).zfill(4) + str(
-                start).zfill(5)
-            start += len(field.encode(encoding))
+            directory += tag + str(length).zfill(4) + str(start).zfill(5)
+            start += length
             if start > 99999:
                 return ''
             variable += field
